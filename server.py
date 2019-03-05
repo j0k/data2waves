@@ -11,12 +11,12 @@ import time
 import json
 from datetime import datetime
 
+from onWaves.onWaves import onWaves
 
 app = Flask(__name__)
 api = restful.Api(app)
 
-
-polltext = ["defult_string"]
+waves = onWaves(privateKey='DvmMB3VawihsTHWFPv3eJD8ENCd2ywYzwmpJksPXkcYb')
 
 @app.after_request
 def add_header(r):
@@ -36,13 +36,23 @@ def index():
 @app.route('/postdata', methods=['POST'])
 def postdata():
     print(request.data)
-    # import ipdb; ipdb.set_trace()
-    # requested_data = request.get_json()
-    # data = ""
-    pairs = map(lambda i:"-".join(i), request.form.items())
-    data = " ".join(pairs)
     print(request.form)
-    resp = jsonify({"data": data, "success": True})
+
+    data = [] # pre
+
+    form = request.form
+    # dump
+    data.append(waves.fieldHTML2dataTrx(form, 'identity', 'string'))
+    data.append(waves.fieldHTML2dataTrx(form, 'avaSHA', 'string'))
+    data.append(waves.fieldHTML2dataTrx(form, 'moto', 'string'))
+    data.append(waves.fieldHTML2dataTrx(form, 'is_public', 'boolean'))
+
+    print(data)
+    # import ipdb; ipdb.set_trace()
+    trx = waves.dataTransaction(data)
+    print(trx)
+    txt = json.dumps({'source':data, 'trx':trx})
+    resp = jsonify({"data": txt, "success": True})
     return resp
 
 

@@ -17,3 +17,12 @@ How to try it:
 - Clone the repository
 - Execute the server (``python server.py``)
 - Open the url <http://127.0.0.1:5000/>
+
+Screenshot
+----------------
+
+Web:
+
+![alt text][dataFill]
+
+[dataFill]:  pics/web.png "Web page screen"

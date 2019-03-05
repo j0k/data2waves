@@ -23,21 +23,45 @@
     <form id="formDescription" enctype='application/json' action="javascript:postdata()" method="post">
       <div class="form-group">
         <label for="identity">Identity / name:</label>
-        <input type="text" class="form-control" id="identity" placeholder="Enter name" name="identity">
+        <input type="text" class="form-control" id="identity" placeholder="Enter name" name="identity" value="Mr. Smith">
+        <select class="form-control">
+          <option selected="selected">string</option>
+          <option>integer</option>
+          <option>boolean</option>
+          <option>binary</option>
+        </select>
       </div>
 
       <div class="form-group">
-        <label for="shaava">SHA of pic:</label>
-        <input type="text" class="form-control" id="shaava" placeholder="Enter SHA of avatar pic" name="shaava">
+        <label for="avaSHA">SHA of pic:</label>
+        <input type="text" class="form-control" id="avaSHA" placeholder="Enter SHA of avatar pic" name="avaSHA" value="da39a3ee5e6b4b0d3255bfef95601890afd80709">
+        <select class="form-control">
+          <option selected="selected">string</option>
+          <option>integer</option>
+          <option>boolean</option>
+          <option>binary</option>
+        </select>
       </div>
 
       <div class="form-group">
         <label for="moto">Moto:</label>
-        <input type="text" class="form-control" id="moto" placeholder="Your moto" name="moto">
+        <input type="text" class="form-control" id="moto" placeholder="Your moto" name="moto" value="action and knowledge are the same">
+        <select class="form-control">
+          <option selected="selected">string</option>
+          <option>integer</option>
+          <option>boolean</option>
+          <option>binary</option>
+        </select>
       </div>
 
       <div class="checkbox">
         <label><input type="checkbox" name="is_public" checked>Be public?</label>
+        <select class="form-control">
+          <option>string</option>
+          <option>integer</option>
+          <option selected="selected">boolean</option>
+          <option>binary</option>
+        </select>
       </div>
       <button type="submit" class="btn btn-default">Submit</button>
     </form>
