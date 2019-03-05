@@ -1,0 +1,4 @@
+started with https://github.com/sigilioso/long_polling_example
+
+flask get data
+https://stackoverflow.com/questions/10434599/how-to-get-data-received-in-flask-request
