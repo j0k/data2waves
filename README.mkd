@@ -1,4 +1,4 @@
-write data transactions 2 waves
+xwrite data transactions 2 waves
 =============================
 
 
@@ -10,6 +10,7 @@ Requirements:
 --------------
 
 - Flask-restful (``pip install flask-restful``).
+- PyWaves (``pip install pywaves``).
 
 How to try it:
 ----------------

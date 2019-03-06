@@ -1,0 +1,64 @@
+Interaction between wallets and account connection
+===========================
+
+common terms:
+```
+account
+tmp account
+account activation
+seed
+
+email
+email verification
+
+wallpost
+message
+```
+
+theses:
+```
+- part of account data saved in blockchain; other only in DB
+- full account in net means at least one wave seed and related record in blockchain
+- you can do a lot without account activation
+- any promotion or impacted activity imply the presence of full account
+```
+
+on blockchain:
+```
+w1 + w2 :: means link w1 & w2 into one account :: ACC = union(w1,w2)
+w1 + w2 + w3 + ... :: link all w_i into one account
+w1 + w2 :> produces dataTx on blockchain which means union(w1, w2)
+
+ACC - w1 :: means detach w1 from accout
+```
+
+inside db:
+```
+create(account)
+```
+
+scripts:
+========
+link ACC with w2
+ACC already linked with w1
+```
+. w1 in ACC
+. w2
+
+w1 :>  gen s1, s1s = w1.sign(s1)
+w1 ::> send s1, s1s to w2
+w2 :>  s1w2s = w2.sign(s1)
+w2 :>  put(s1w2s) - into blockchain || put(s1, s1s, s1w2s)
+w2 :^  that means that w2 approved that 'w2 now part of ACC'
+link
+```
+
+questions:
+==========
+
+q1: s = w2.sign(str), put(s); can anyone check that
+
+
+links:
+=====
+- WavesKeeper <https://github.com/wavesplatform/waveskeeper>
