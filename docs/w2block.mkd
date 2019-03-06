@@ -15,6 +15,14 @@ wallpost
 message
 ```
 
+we want:
+```
+1. generate ACCOUNT on blockchain
+2. link wallets to account
+3. detach wallet from account
+4. think about tmp accounts (which still have no usual wallets)
+```
+
 theses:
 ```
 - part of account data saved in blockchain; other only in DB
@@ -36,6 +44,18 @@ inside db:
 ```
 create(account)
 ```
+
+operations:
+==========
+```
+- merge(Ai,Aj) : Ai,Aj - accounts
+- link(A, w)   : link w(allet) with A
+- create(A)    : create account
+- create(A,w)  : create account with w(allet)
+- detach(A,w)  : detach w(allet) from A
+```
+
+each operation has {structure, effect expressed in data transactions on blockchain or in DB}
 
 scripts:
 ========
@@ -62,3 +82,5 @@ q1: s = w2.sign(str), put(s); can anyone check that
 links:
 =====
 - WavesKeeper <https://github.com/wavesplatform/waveskeeper>
+- auth-api <https://docs.wavesplatform.com/en/waves-api-and-sdk/client-api/auth-api.html>
+- realtimeboard for prototyping <https://realtimeboard.com/app/board/o9J_kyYHVig=/>
