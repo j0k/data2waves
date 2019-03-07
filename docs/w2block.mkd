@@ -1,12 +1,19 @@
 Interaction between wallets and account connection
 ===========================
 
+principles:
+```
+1. Be similar in blockchain and in DB
+2. Be short, terse, simple and clear with description
+```
+
 common terms:
 ```
 account
 tmp account
 account activation
 seed
+signature
 
 email
 email verification
@@ -19,8 +26,9 @@ we want:
 ```
 1. generate ACCOUNT on blockchain
 2. link wallets to account
-3. detach wallet from account
+3. ?? detach wallet from account
 4. think about tmp accounts (which still have no usual wallets)
+5. save fields into blockchainn
 ```
 
 theses:
@@ -29,6 +37,7 @@ theses:
 - full account in net means at least one wave seed and related record in blockchain
 - you can do a lot without account activation
 - any promotion or impacted activity imply the presence of full account
+- signature must contain inside all necessary data (operation, addresses of all participants, random seeds, time?)
 ```
 
 on blockchain:
@@ -42,18 +51,162 @@ ACC - w1 :: means detach w1 from accout
 
 inside db:
 ```
-create(account)
+create(account) generates addr and fields inside DB
 ```
 
 operations:
 ==========
 ```
-- merge(Ai,Aj) : Ai,Aj - accounts
-- link(A, w)   : link w(allet) with A
-- create(A)    : create account
-- create(A,w)  : create account with w(allet)
-- detach(A,w)  : detach w(allet) from A
+- create(A,w)     : create account with w(allet)
+- createTmp(A)    : create account
+- merge(Ai,Aj)    : Ai,Aj - accounts
+- link(A, w)      : link w(allet) with A
+- detach(A,w)     : detach w(allet) from A
+- save(A, fields) :
 ```
+
+any operation in blockchain:
+```
+{
+  op: "operation",
+  seed: "random",
+  arg1: "",
+  arg2: "",
+  ...,
+  addr: "",
+  sign: ""
+}
+```
+
+keep in mind that
+1. addr is part of transaction so we don't need to store it
+2. seed is random part of elliptical cryptography algorithm (#todo: find auth algorithm in [src](https://github.com/wavesplatform/waves-signature-generator "waves-signature-generator"))
+
+details:
+1. we don't need to store seed
+2. we don't need to store sign
+3. we need to store sign_o
+
+Account means:
+```
+{
+  field_1: ,
+  field_2: ,
+  field_3: ,
+  ...,
+  addr: "",
+  sign: ""
+}
+```
+
+
+create account
+```
+op - create
+{
+  op: "create",
+  seed: "random",
+  addr: "",
+  sign: ""
+}
+
+sign is constructed on
+{
+  op:, seed:, addr:
+}
+structure
+```
+
+
+link wallet (A, w)
+
+```
+1. A need to sign
+signature = sign({
+  op: "a<w",
+  seed: "random",
+  addr: "",
+  wallet: "",  
+})
+
+or make transaction:
+{
+  op: "a<w",
+  seed: "random1",
+  addr: "",
+  wallet: "",
+  sign: signature
+}
+
+2. w need to approve
+op - w>a
+{
+  op: "w>a",
+  seed: "random2",  
+  addr: "",
+  addr_account: "",
+  sign_o: signature,  
+  seed_o: "random1",
+  sign: "",  
+}
+```
+
+merge accounts A1 + A2
+```
+case 1 in two transaction:
+A1 (addr of A1):
+{
+  op: "a+a",
+  seed:
+  addr:
+  addr_o:
+  sign:
+}
+// addr_o means addr of other
+
+A2 (addr of A2, addr_o ):
+{
+  op: "a+a",
+  seed:
+  addr:
+  addr_o:
+  sign:
+}
+
+case 2 in one transaction:
+A1 generates signature = sign({
+  op: "a+a",
+  seed: "random",
+  addr: "",  
+})
+
+A2 (addr of A2):
+{
+  op: "a+a",
+  seed:
+  addr:
+  addr_o:
+  seed_o:
+  sign_o: signature
+  sign:
+}
+
+```
+
+save fields of A in blockchain
+```
+{
+  op: "save",
+  seed: "random"
+  f1:
+  f2:
+  ...
+  fn:
+  sign:
+}
+
+```
+
 
 each operation has {structure, effect expressed in data transactions on blockchain or in DB}
 
@@ -76,7 +229,23 @@ link
 questions:
 ==========
 
-q1: s = w2.sign(str), put(s); can anyone check that
+1. can WSN service push dataTrx transactions to blockchain from account
+2. can other people built NET on public data? (important)
+3. (think) do we need to control (with signing) trx related to NET?
+4. addr, addr_o - ok, but it's better to create notation like source-dest but better
+5. think about how already signed data in public blockchain can be used in future as part of trx (in hack-sense)
+6. ?what about approach when MVP can work fully using only blockchain?
+7. it will be fine to have clear ability to use [console app style](#console_app) for blockchain operations
+
+<a name="console_app"></a> console app style:
+========
+```
+./app -p1 param1 -p2 param2 -c config
+
+./w2chain -op "a+a" -a addr -addr_o "address" -seed_o "signature" -c config.json
+```
+1.
+
 
 
 links:
@@ -84,3 +253,4 @@ links:
 - WavesKeeper <https://github.com/wavesplatform/waveskeeper>
 - auth-api <https://docs.wavesplatform.com/en/waves-api-and-sdk/client-api/auth-api.html>
 - realtimeboard for prototyping <https://realtimeboard.com/app/board/o9J_kyYHVig=/>
+- [example](https://testnet.wavesexplorer.com/tx/87Xa5vpiGNh6dZdvKZ84yR9u11t73hxfsEDJYA4QMCZE "8 March 2019") of dataTrx
