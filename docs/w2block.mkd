@@ -237,12 +237,26 @@ questions:
 6. ?what about approach when MVP can work fully using only blockchain?
 7. it will be fine to have clear ability to use [console app style](#console_app) for blockchain operations
 
-<a name="console_app"></a> console app style:
+<a name="console_app"></a>console app style:
 ========
 ```
 ./app -p1 param1 -p2 param2 -c config
 
 ./w2chain -op "a+a" -a addr -addr_o "address" -seed_o "signature" -c config.json
+
+command =
+{
+  "op":"a+a",
+  "addr":{
+    "source":"my",
+    "dest":"addr_o"
+  }  
+}
+
+config.json
+{
+  "privateKey":key,
+}
 ```
 1.
 

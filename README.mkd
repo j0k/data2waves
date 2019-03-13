@@ -5,7 +5,8 @@ xwrite data transactions 2 waves
 Docs
 --------------
 - Real Time Board <https://realtimeboard.com/app/board/o9J_kyZTri0=/>
-- [Doc](docs/w2block.mkd) for featured blockchain operations 
+- [Doc1](docs/arch_v0.1.mkd) for arch in common
+- [Doc0](docs/w2block.mkd) for featured blockchain operations
 
 Requirements:
 --------------

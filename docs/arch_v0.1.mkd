@@ -1,0 +1,83 @@
+SOC NET: account and wallets
+============================
+*draft 13.03.2019. v0.1*
+
+principles:
+```
+1. Be same in blockchain and in DB
+2. Be short, terse and simple
+3. Be clear with description
+```
+
+common terms:
+```
+account
+tmp account
+wallet
+account activation
+seed
+signature
+email verification
+profile and profile data
+content id
+```
+
+account mechanics:
+======
+1. account in social net means `master wallet with its own seed `
+2. other wallets can be linked to master
+
+  this is simple in UX and tech so let it be the first step
+
+3. account must be activated with *tokens* for social interactions
+4. non-activated account is full and have all advanced features internal except social interaction
+5. all accounts have public link
+6. non-activated account public links are not interactable in social sense (?)
+5. *any* profile data **can be** stored inside blockchain. Usually it's stored only in DB
+
+tech operations:
+================
+
+in DB
+```
+- create(account)
+```
+
+in blockchain
+```
+- activate(account)
+- account.save(data) : data have content id and related to profile fields or content
+- account.link(wallet)
+```
+
+Usually all data is saving only in DB. There is an ability to save data in [data transaction](https://blog.wavesplatform.com/data-transactions-are-coming-to-waves-930ab5f633a9) in blockchain. Some profile data is saving in blockchain by default(?).
+
+Blockchain physical constants:
+====================
+* Fees for data transactions are proportional to transaction size: 100,000 per kilobyte, rounded up to the nearest kb
+* Maximum size of a data transaction is around 140kb. (it will cost just 0.14 WAVES (less than $1))
+* The maximum size for a key is 100 characters, and a key can contain arbitrary Unicode code points including spaces and other non-printable symbols.
+* String values have a limit of 32,768 bytes and the maximum number of possible entries in data transaction is 100.
+
+typical scenarios:
+==========
+1. person create profile with avatar, nick and other data
+2. person now have link.
+
+  q: can person generate social activity (?) on this step
+
+3. person or persons friend send tokens on the personal account wallet
+4. now it's public link became interactable
+
+Picture logs:
+===========
+![alt text][archDraft_1]
+
+Docs
+--------------
+- Real Time Board <https://realtimeboard.com/app/board/o9J_kyZTri0=/>
+- [Previous draft doc](w2block.mkd) of featured blockchain operations
+
+
+
+[archDraft_1]:  ../pics/archDraft_1.jpg "Draft on interaction between account, DB, blockchain and wallet in short"
