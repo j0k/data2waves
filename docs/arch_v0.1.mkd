@@ -20,20 +20,27 @@ signature
 email verification
 profile and profile data
 content id
+seed phrase determine wallet with (address and public & private keys)
 ```
 
 account mechanics:
 ======
-1. account in social net means `master wallet with its own seed `
-2. other wallets can be linked to master
+1. account in social net means `master wallet with its own seed = social account seed`
+2. other wallets can be linked to that social acc
 
   this is simple in UX and tech so let it be the first step
 
-3. account must be activated with *tokens* for social interactions
+3. account would be activated with *tokens* for social interactions (friends also can activate it sending some tokens )
 4. non-activated account is full and have all advanced features internal except social interaction
-5. all accounts have public link
-6. non-activated account public links are not interactable in social sense (?)
-5. *any* profile data **can be** stored inside blockchain. Usually it's stored only in DB
+5. account linking can be done via WalletKeeper (signing)
+6. all accounts have public link
+7. non-activated account public links are not interactable in social sense
+8. *any* profile data **can be** stored inside blockchain. Usually it's stored only in DB
+9. login procedure into account use:
+  +. social seed
+  +. 4 digit pin in next time
+10. social seed saved in local storage of web browser
+11. User can block it's account
 
 tech operations:
 ================
@@ -61,17 +68,21 @@ Blockchain physical constants:
 
 typical scenarios:
 ==========
-1. person create profile with avatar, nick and other data
-2. person now have link.
 
-  q: can person generate social activity (?) on this step
+1. Users can come with tokens or without tokens (practically the same as with-or-without Waves wallet)
+1. person create profile with avatar, nick and other data (minimal info on registration)
+2. person now have link which can be shared
+
+  q: person cant generate social activity on this step; but can observe content;
 
 3. person or persons friend send tokens on the personal account wallet
 4. now it's public link became interactable
 
 Picture logs:
 ===========
-![alt text][archDraft_1]
+![common][archDraft_1]
+![activation][archDraft_2]
+
 
 Docs
 --------------
@@ -81,3 +92,4 @@ Docs
 
 
 [archDraft_1]:  ../pics/archDraft_1.jpg "Draft on interaction between account, DB, blockchain and wallet in short"
+[archDraft_2]:  ../pics/archDraft_2.jpg "Draft on activation"
